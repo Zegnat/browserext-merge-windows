@@ -32,9 +32,11 @@ Some other tab management extensions you may like:
   getting rid only of windows is not enough, Duplicate Tabs Closer can help you
   to clear out tabs as well!
 
-## Screenshots
+## Usage
 
-Context menu allowing the choice of exactly what window to merge with.
+**Right click on the web page** in the window, where you want to merge.
+
+Context menu allowing the choice of exactly what window to merge with:
 
 ![Screenshot: interacting with context menus. 4 different window names shown as merging candidates.](assets/contextmenu.png)
 
