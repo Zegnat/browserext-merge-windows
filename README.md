@@ -34,7 +34,7 @@ Some other tab management extensions you may like:
 
 ## Usage
 
-**Right click on the web page** in the window, where you want to merge.
+**Right click on the web page** in the window, where you want to merge. The menu should show up when right-clicking anywhere on the webpage you have open. 
 
 Context menu allowing the choice of exactly what window to merge with:
 
