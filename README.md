@@ -14,7 +14,7 @@ some usability choices that other alternatives do not have.
   ever merge with another private window, making sure tabs do not leak into
   non-private space.
 
-Have a look at the screenshots to see what is on offer!
+Have a look at the screenshots below to see what is on offer!
 
 Special care was taken to make sure the extension would fit well within the
 browser. Its preferences screen integrates with the Extensions page really
@@ -23,14 +23,6 @@ with ESR versions of Firefox to be as accessible as possible.
 
 Beside this Window Merger tries to stick to the Linux mantra of “Do One Thing
 and Do It Well”.
-
-Some other tab management extensions you may like:
-
-* **[FoxyTab][]** — for the all in one thing. If Window Merger does not satisfy
-  your habits, chances are a configuration of FoxyTab exists that does!
-* **[Duplicate Tabs Closer][]** — for cleaning tabs after merging windows. If
-  getting rid only of windows is not enough, Duplicate Tabs Closer can help you
-  to clear out tabs as well!
 
 ## Usage
 
@@ -69,6 +61,17 @@ as a browser extension as well:
 ```
 web-ext lint
 ```
+
+## Alternatives
+
+Some other tab management extensions you may like:
+
+* **[FoxyTab][]** — for the all in one thing. If Window Merger does not satisfy
+  your habits, chances are a configuration of FoxyTab exists that does!
+* **[Duplicate Tabs Closer][]** — for cleaning tabs after merging windows. If
+  getting rid only of windows is not enough, Duplicate Tabs Closer can help you
+  to clear out tabs as well!
+
 
 ## Licenses
 
