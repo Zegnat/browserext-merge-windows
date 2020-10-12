@@ -28,7 +28,7 @@
   },
   "permissions": [
     "tabs",
-    "contextMenus",
+    "menus",
     "storage"
   ],
   "browser_specific_settings": {

@@ -3,11 +3,11 @@
 let focusOrder = []
 browser.windows.onRemoved.addListener(removedId => {
   focusOrder.filter(id => removedId !== id)
-  browser.contextMenus.remove('merge_' + removedId)
-  getWindowsSorted().then(windows => windows.length < 2 && browser.contextMenus.removeAll())
+  browser.menus.remove('merge_' + removedId)
+  getWindowsSorted().then(windows => windows.length < 2 && browser.menus.removeAll())
 })
 browser.windows.onFocusChanged.addListener(drawMenus)
-browser.contextMenus.onClicked.addListener((menuItem, currentTab) => {
+browser.menus.onClicked.addListener((menuItem, currentTab) => {
   if (menuItem.menuItemId === 'merge_all') {
     getWindowsSorted(true)
       .then(windows => merge(windows.splice(1), currentTab.windowId, currentTab.id, currentTab.index))
@@ -35,26 +35,26 @@ function drawMenus (focusedId) {
   Promise.all([
     getWindowsSorted(),
     getContextMenuLocations(),
-    browser.contextMenus.removeAll()
+    browser.menus.removeAll()
   ]).then(([windows, contextMenuLocations]) => {
     if (windows.length < 2) return
-    const parentId = browser.contextMenus.create({
+    const parentId = browser.menus.create({
       title: 'Merge Windows',
       contexts: contextMenuLocations
     })
-    browser.contextMenus.create({
+    browser.menus.create({
       title: 'Merge all windows into this one',
       id: 'merge_all',
       parentId
     })
-    browser.contextMenus.create({
+    browser.menus.create({
       type: 'separator',
       parentId
     })
     windows
       .splice(1)
       .forEach(window => {
-        browser.contextMenus.create({
+        browser.menus.create({
           title: 'Merge tabs from ' + window.title,
           id: 'merge_' + window.id,
           parentId
@@ -107,7 +107,7 @@ function getContextMenuLocations () {
     browser.storage.local.get({
       context_menu_location: 0
     }).then(({ context_menu_location: preference }) => {
-      const list = ['all', 'tab']
+      const list = ['all', 'tools_menu', 'tab']
       if (preference === 0) {
         list.pop()
       } else if (preference === 1) {
