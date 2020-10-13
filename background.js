@@ -34,13 +34,13 @@ function drawMenus (focusedId) {
   focusOrder = [...new Set([focusedId].filter(Number).concat(focusOrder))]
   Promise.all([
     getWindowsSorted(),
-    getContextMenuLocations(),
+    browser.storage.local.get({ menu_location: ['all', 'tab', 'tools_menu'] }),
     browser.menus.removeAll()
-  ]).then(([windows, contextMenuLocations]) => {
+  ]).then(([windows, { menu_location: menuLocations }]) => {
     if (windows.length < 2) return
     const parentId = browser.menus.create({
       title: 'Merge Windows',
-      contexts: contextMenuLocations
+      contexts: menuLocations
     })
     browser.menus.create({
       title: 'Merge all windows into this one',
@@ -89,9 +89,9 @@ function getWindowsSorted (populate = false) {
 function merge (subjects, target, active, activeIndex) {
   const tabs = subjects.reduce((flat, window) => flat.concat(window.tabs), [])
   Promise
-    .all([browser.storage.local.get({ merge_insertion: 0 })].concat(tabs.filter(tab => tab.pinned).map(tab => browser.tabs.update(tab.id, { pinned: false }))))
+    .all([browser.storage.local.get({ merge_insertion: ['0'] })].concat(tabs.filter(tab => tab.pinned).map(tab => browser.tabs.update(tab.id, { pinned: false }))))
     .then(([{ merge_insertion: mergeInsertion }, ...unpinned]) => {
-      const moveIndex = mergeInsertion === 0 ? -1 : ++activeIndex
+      const moveIndex = mergeInsertion.pop() === '0' ? -1 : ++activeIndex
       const moveList = tabs.map(tab => tab.id)
       if (moveIndex !== -1) moveList.reverse()
       browser.tabs.move(moveList, { windowId: target, index: moveIndex })
@@ -102,22 +102,6 @@ function merge (subjects, target, active, activeIndex) {
     })
 }
 
-function getContextMenuLocations () {
-  return new Promise(function (resolve, reject) {
-    browser.storage.local.get({
-      context_menu_location: 0
-    }).then(({ context_menu_location: preference }) => {
-      const list = ['all', 'tools_menu', 'tab']
-      if (preference === 0) {
-        list.pop()
-      } else if (preference === 1) {
-        list.shift()
-      }
-      resolve(list)
-    }, reject)
-  })
-}
-
 browser.storage.onChanged.addListener(changes => {
-  if ('context_menu_location' in changes) drawMenus()
+  if ('menu_location' in changes) drawMenus()
 })

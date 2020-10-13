@@ -1,20 +1,18 @@
-browser.storage.local.get({
-  context_menu_location: 0,
-  merge_insertion: 0
-}).then(preferences => {
-  for (const preference in preferences) {
-    document.querySelector('[name="' + preference + '"][value="' + preferences[preference] + '"]').checked = true
+function updateForm (state) {
+  for (const name in state) {
+    document.querySelectorAll('[name="' + name + '"]').forEach(element => { element.checked = (state[name].newValue || state[name]).includes(element.value) })
   }
-})
+}
+
+browser.storage.local.get({
+  menu_location: ['all', 'tab', 'tools_menu'],
+  merge_insertion: ['0']
+}).then(updateForm)
 
 document.body.addEventListener('change', ({ target }) => {
   const save = {}
-  save[target.name] = Number.parseInt(target.value)
+  save[target.name] = Array.from(document.querySelectorAll('[name="' + target.name + '"]:checked')).map(checkbox => checkbox.value)
   browser.storage.local.set(save)
 })
 
-browser.storage.onChanged.addListener(changes => {
-  for (const change in changes) {
-    document.querySelector('[name="' + change + '"][value="' + changes[change].newValue + '"]').checked = true
-  }
-})
+browser.storage.onChanged.addListener(updateForm)

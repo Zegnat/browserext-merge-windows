@@ -29,12 +29,12 @@
   <body>
     <fieldset>
       <legend>Choose where the context menu is available:</legend>
-      <input type="radio" name="context_menu_location" id="page" value="0">
-      <label for="page">On the web page (default)</label>
-      <input type="radio" name="context_menu_location" id="tab_bar" value="1">
+      <input type="checkbox" name="menu_location" value="all" id="page">
+      <label for="page">On the web page</label>
+      <input type="checkbox" name="menu_location" value="tab" id="tab_bar">
       <label for="tab_bar">On the tab bar</label>
-      <input type="radio" name="context_menu_location" id="both" value="2">
-      <label for="both">On both the web page and tab bar</label>
+      <input type="checkbox" name="menu_location" value="tools_menu" id="menu">
+      <label for="menu">In the tools menu</label>
     </fieldset>
     <fieldset>
       <legend>Choose where to merge tabs to:</legend>
