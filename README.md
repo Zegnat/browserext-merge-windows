@@ -34,7 +34,8 @@ Some other tab management extensions you may like:
 
 ## Screenshots
 
-Context menu allowing the choice of exactly what window to merge with.
+Context menu (e.g. triggered by right clicking the page) allowing the choice of
+exactly what window to merge with.
 
 ![Screenshot: interacting with context menus. 4 different window names shown as merging candidates.](assets/contextmenu.png)
 
@@ -42,10 +43,15 @@ Extension shortcuts for those who want quicker access away from their mouse.
 
 ![Screenshot: Firefox’s built-in extension shortcuts configuration screen. 2 different actions can be assigned shortcuts.](assets/extensionshortcuts.png)
 
-Extension preferences for making the context menu available on different parts
-of the browser window, and switching the merging strategy.
+Also integrates with Firefox’s main “Tools” menu item for easy access in the
+browser interface.
 
-![Screenshot: the extension’s configuration screen. 2 multiple-choice lists are displayed.](assets/preferences.png)
+![Screenshot: Firefox’s Tools menu opened on macOS shows the Window Merger item.](assets/toolsmenu.png)
+
+Extension preferences for making the menu available where you want it to be,
+and for switching the merging strategy.
+
+![Screenshot: the extension’s configuration screen. First a list of checkboxes, then a multiple-choice, are displayed.](assets/preferences.png)
 
 The same preferences tab as it shows up in Firefox’s default theme on macOS
 with the operating system appearance set to “Dark”.
