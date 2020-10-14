@@ -1,8 +1,15 @@
 # ![](assets/icon032.png) Window Merger
 
 Window Merger was created to address how people want to merge browser windows
-together after a long browsing session. It focusses on just that, but gives
-some usability choices that other alternatives do not have.
+together after a long browsing session. Simply right click to open Firefox’s
+context menu when multiple windows are open, pick the window you want to merge
+with, and done!
+
+It focusses on merging windows alone, but gives some usability choices that
+other alternatives do not have like user defined keyboard shortcuts and
+accessibility through the browser’s own Tools menu.
+
+Have a look at the screenshots to see what is on offer!
 
 * **Window Merger does not require you to merge everything.** Often people
   wanted to merge only specific windows together, so that choice had to
@@ -13,8 +20,6 @@ some usability choices that other alternatives do not have.
   kept separate from normal windows in all features. A private window will only
   ever merge with another private window, making sure tabs do not leak into
   non-private space.
-
-Have a look at the screenshots to see what is on offer!
 
 Special care was taken to make sure the extension would fit well within the
 browser. Its preferences screen integrates with the Extensions page really
