@@ -4,7 +4,8 @@
 		"web-ext": "^5.2.0"
 	},
 	"scripts": {
-		"test": "standard --env webextensions && web-ext lint"
+		"test": "standard --env webextensions && web-ext lint",
+		"start": "standard --env webextensions && web-ext lint && web-ext build"
 	},
 	"webExt": {
 		"ignoreFiles": [
@@ -12,8 +13,9 @@
 			"README.md",
 			"assets/contextmenu.png",
 			"assets/extensionshortcuts.png",
+			"assets/preferences-dark.png",
 			"assets/preferences.png",
-			"web-ext-config.js",
+			"assets/toolsmenu.png",
 			"package.json"
 		]
 	}
