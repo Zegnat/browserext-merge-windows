@@ -105,3 +105,17 @@ function merge (subjects, target, active, activeIndex) {
 browser.storage.onChanged.addListener(changes => {
   if ('menu_location' in changes) drawMenus()
 })
+
+browser.runtime.onInstalled.addListener(() => {
+  browser.storage.local.get(['context_menu_location', 'merge_insertion']).then(({ context_menu_location: oldLocation, merge_insertion: oldMerge }) => {
+    const save = {}
+    if (Number.isInteger(oldLocation)) {
+      save.menu_location = [['all'], ['tab'], ['all', 'tab']][oldLocation]
+      browser.storage.local.remove('context_menu_location')
+    }
+    if (Number.isInteger(oldMerge)) {
+      save.merge_insertion = [oldMerge.toString()]
+    }
+    browser.storage.local.set(save)
+  })
+})
