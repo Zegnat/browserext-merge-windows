@@ -6,7 +6,8 @@ function updateForm (state) {
 
 browser.storage.local.get({
   menu_location: ['all', 'tab', 'tools_menu'],
-  merge_insertion: ['0']
+  merge_insertion: ['0'],
+  experimental: []
 }).then(updateForm)
 
 document.body.addEventListener('change', ({ target }) => {
