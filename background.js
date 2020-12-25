@@ -11,6 +11,14 @@ browser.menus.onClicked.addListener((menuItem, currentTab) => {
   if (menuItem.menuItemId === 'merge_all') {
     getWindowsSorted(true)
       .then(windows => merge(windows.splice(1), currentTab.windowId, currentTab.id, currentTab.index))
+  } else if (menuItem.menuItemId.substr(0, 11) === 'merge_into_') {
+    const targetWindow = parseInt(menuItem.menuItemId.substr(11))
+    Promise.all([
+      browser.tabs.query({ highlighted: true, windowId: currentTab.windowId }),
+      browser.tabs.query({ active: true, windowId: targetWindow })
+    ]).then(([tabs, active]) => {
+      merge([{ tabs: [...new Set(tabs.concat([currentTab]))] }], targetWindow, active[0].id, active[0].index)
+    })
   } else if (menuItem.menuItemId.substr(0, 6) === 'merge_') {
     browser.windows.get(parseInt(menuItem.menuItemId.substr(6)), { populate: true })
       .then(subject => merge([subject], currentTab.windowId, currentTab.id, currentTab.index))
@@ -34,13 +42,17 @@ function drawMenus (focusedId) {
   focusOrder = [...new Set([focusedId].filter(Number).concat(focusOrder))]
   Promise.all([
     getWindowsSorted(),
-    browser.storage.local.get({ menu_location: ['all', 'tab', 'tools_menu'] }),
+    browser.storage.local.get({ menu_location: ['all', 'tab', 'tools_menu'], experimental: [] }),
     browser.menus.removeAll()
-  ]).then(([windows, { menu_location: menuLocations }]) => {
+  ]).then(([windows, { menu_location: menuLocations, experimental: [experimental] }]) => {
     if (windows.length < 2) return
     const parentId = browser.menus.create({
       title: 'Merge Windows',
       contexts: menuLocations
+    })
+    const parentIdTabs = experimental && browser.menus.create({
+      title: 'Merge Tab into...',
+      contexts: ['tab']
     })
     browser.menus.create({
       title: 'Merge all windows into this one',
@@ -58,6 +70,11 @@ function drawMenus (focusedId) {
           title: 'Merge tabs from ' + window.title,
           id: 'merge_' + window.id,
           parentId
+        })
+        experimental && browser.menus.create({
+          title: '... ' + window.title,
+          id: 'merge_into_' + window.id,
+          parentId: parentIdTabs
         })
       })
   })
@@ -103,7 +120,7 @@ function merge (subjects, target, active, activeIndex) {
 }
 
 browser.storage.onChanged.addListener(changes => {
-  if ('menu_location' in changes) drawMenus()
+  if (['menu_location', 'experimental'].some(a => a in changes)) drawMenus()
 })
 
 browser.runtime.onInstalled.addListener(() => {
