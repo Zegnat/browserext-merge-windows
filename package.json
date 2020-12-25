@@ -16,7 +16,8 @@
 			"assets/preferences-dark.png",
 			"assets/preferences.png",
 			"assets/toolsmenu.png",
-			"package.json"
+			"package.json",
+			"pnpm-lock.yaml"
 		]
 	}
 }
